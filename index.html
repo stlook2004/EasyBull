@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easybull — trading made simple</title>
+<meta name="description" content="easybull is the trading app that makes markets make sense, with Toro, your AI trading assistant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110"><rect width="110" height="110" rx="26" fill="%230E2B21"/><g transform="translate(0,10) scale(1.1)"><path d="M36 46 C22 44 12 34 14 18 C22 28 28 33 38 35 Q40 41 36 46 Z" fill="%2318C98A"/><path d="M64 46 C78 44 88 34 86 18 C78 28 72 33 62 35 Q60 41 64 46 Z" fill="%2318C98A"/><polyline points="33,25 43,16 51,21 63,11" fill="none" stroke="%2318C98A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M69.5 5.5 L61.8 6.5 L67 12.8 Z" fill="%2318C98A"/><path d="M30 40 Q50 29 70 40 L66 64 Q58 80 50 80 Q42 80 34 64 Z" fill="%23FFFFFF"/><circle cx="40" cy="50" r="3" fill="%230E2B21"/><circle cx="60" cy="50" r="3" fill="%230E2B21"/><rect x="37" y="63" width="26" height="15" rx="7.5" fill="%2318C98A"/><circle cx="44" cy="70.5" r="2.4" fill="%230E2B21"/><circle cx="56" cy="70.5" r="2.4" fill="%230E2B21"/></g></svg>'>
+<style>
+:root{
+  --ink:#0E2B21; --ink-2:#12362A; --mint:#18C98A; --green:#12B076; --green-deep:#0F6E56;
+  --paper:#F5FAF7; --card:#FFFFFF; --muted:#5B6E63; --line:#E0E9E3; --red:#F0525A;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+nav{position:sticky;top:0;z-index:10;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-in{display:flex;align-items:center;gap:12px;padding:14px 24px;max-width:1080px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.25rem;color:#fff;font-weight:600}
+.brand b{color:var(--mint);font-weight:600}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:.9rem;color:#BFD6CA}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-block;font-family:var(--display);font-weight:600;border-radius:999px;padding:11px 24px;font-size:.95rem;cursor:pointer;border:none;transition:transform .12s ease,background .12s ease}
+.btn:active{transform:scale(.97)}
+.btn-mint{background:var(--mint);color:var(--ink)}
+.btn-mint:hover{background:#2BDDA0}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
+.btn-ghost:hover{border-color:var(--mint);color:var(--mint)}
+
+.hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:88px 0 96px;position:relative;z-index:1}
+.kicker{font-family:var(--display);letter-spacing:.32em;text-transform:lowercase;font-size:.8rem;color:var(--mint);margin-bottom:18px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,5.4vw,4rem);line-height:1.06;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--mint)}
+.hero p.lead{margin:22px 0 32px;color:#BFD6CA;font-size:1.1rem;max-width:32rem}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-chart{position:absolute;inset:auto 0 0 0;height:46%;opacity:.5;pointer-events:none}
+.hero-chart path.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s .3s ease-out forwards}
+.hero-chart .tip{opacity:0;animation:pop .5s 2.5s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{to{opacity:1}}
+
+.phone{width:min(340px,100%);margin-left:auto;background:#fff;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+.chat-head{background:var(--ink-2);display:flex;align-items:center;gap:10px;padding:13px 15px}
+.chat-head .who p{color:#fff;font-family:var(--display);font-weight:600;font-size:.95rem;line-height:1.2}
+.chat-head .who span{color:#9FDCC4;font-size:.72rem;display:flex;align-items:center;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block}
+.chat-body{background:#F6FAF8;padding:14px;display:flex;flex-direction:column;gap:10px;font-size:.82rem;color:var(--ink)}
+.msg{padding:9px 13px;border-radius:15px;line-height:1.45;max-width:88%}
+.msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.msg.toro{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.mini-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:.78rem}
+.mini-card .row{display:flex;justify-content:space-between;padding:4px 0}
+.mini-card .row + .row{border-top:1px solid #EEF4F0}
+.up{color:var(--green);font-weight:500}.down{color:var(--red);font-weight:500}
+.chat-in{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.chat-in .field{flex:1;background:#F1F6F3;border-radius:999px;padding:8px 14px;font-size:.8rem;color:#7C8B83}
+.chat-in .send{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+.ticker{background:var(--ink-2);border-top:1px solid rgba(255,255,255,.06);overflow:hidden;padding:10px 0}
+.ticker-track{display:flex;gap:44px;width:max-content;animation:scroll 30s linear infinite;font-family:var(--display);font-size:.82rem;color:#BFD6CA;white-space:nowrap}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.t-up{color:var(--mint)}.t-down{color:#FF8A8F}
+
+section{padding:88px 0}
+.eyebrow{font-family:var(--display);letter-spacing:.3em;font-size:.75rem;color:var(--green-deep);margin-bottom:14px}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.4rem);letter-spacing:-.01em;max-width:24ch}
+.sub{color:var(--muted);margin-top:14px;max-width:36rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:44px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px}
+.card .glyph{width:44px;height:44px;border-radius:12px;background:#E4F5EE;color:var(--green-deep);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:16px}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.08rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.92rem}
+
+.toro{background:var(--ink);color:#fff;border-radius:28px;padding:64px 56px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.toro .eyebrow{color:var(--mint)}
+.toro h2{color:#fff}
+.toro .sub{color:#BFD6CA}
+.toro ul{list-style:none;margin-top:24px;display:grid;gap:12px;color:#DDEDE4;font-size:.95rem}
+.toro li{padding-left:26px;position:relative}
+.toro li::before{content:"";position:absolute;left:0;top:.42em;width:12px;height:12px;border-radius:50%;background:var(--mint)}
+.toro-avatar{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.toro-avatar .name{font-family:var(--display);font-weight:600;font-size:1.2rem}
+.toro-avatar .role{color:#9FDCC4;font-size:.82rem}
+
+.cta{text-align:center}
+.cta form{margin:32px auto 0;display:flex;gap:10px;max-width:440px}
+.cta input[type=email]{flex:1;border:1px solid var(--line);border-radius:999px;padding:13px 20px;font-size:.95rem;font-family:var(--body);background:#fff;color:var(--ink)}
+.cta .fine{margin-top:14px;font-size:.8rem;color:var(--muted)}
+
+footer{background:var(--ink);color:#8FA89B;padding:44px 0;font-size:.82rem}
+.foot-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between}
+footer .disclaimer{max-width:52rem;margin-top:18px;color:#6E8A7C;line-height:1.6}
+
+@media (max-width:840px){
+  .hero-grid,.toro{grid-template-columns:1fr}
+  .phone{margin:0 auto}
+  .toro{padding:44px 26px}
+  .nav-links a.hide-m{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none}
+  .hero-chart path.draw{animation:none;stroke-dashoffset:0}
+  .hero-chart .tip{animation:none;opacity:1}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="easybull home">
+      <svg width="34" height="34" viewBox="0 0 110 110" aria-hidden="true"><rect width="110" height="110" rx="26" fill="#0E2B21"/><g transform="translate(0,10) scale(1.1)"><path d="M36 46 C22 44 12 34 14 18 C22 28 28 33 38 35 Q40 41 36 46 Z" fill="#18C98A"/><path d="M64 46 C78 44 88 34 86 18 C78 28 72 33 62 35 Q60 41 64 46 Z" fill="#18C98A"/><polyline points="33,25 43,16 51,21 63,11" fill="none" stroke="#18C98A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M69.5 5.5 L61.8 6.5 L67 12.8 Z" fill="#18C98A"/><path d="M30 40 Q50 29 70 40 L66 64 Q58 80 50 80 Q42 80 34 64 Z" fill="#FFFFFF"/><circle cx="40" cy="50" r="3" fill="#0E2B21"/><circle cx="60" cy="50" r="3" fill="#0E2B21"/><rect x="37" y="63" width="26" height="15" rx="7.5" fill="#18C98A"/><circle cx="44" cy="70.5" r="2.4" fill="#0E2B21"/><circle cx="56" cy="70.5" r="2.4" fill="#0E2B21"/></g></svg>
+      easy<b>bull</b>
+    </a>
+    <div class="nav-links">
+      <a class="hide-m" href="#app">The app</a>
+      <a class="hide-m" href="#toro">Meet Toro</a>
+      <a class="btn btn-mint" href="#waitlist" style="padding:9px 20px;font-size:.85rem">Join the waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-chart" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
+    <path class="draw" pathLength="1" d="M0 230 L140 205 L260 218 L400 170 L520 188 L660 130 L790 150 L930 84 L1080 40" fill="none" stroke="#18C98A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="tip" d="M1112 22 L1066 32 L1096 62 Z" fill="#18C98A"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">trading made simple</p>
+      <h1>The market, minus the <em>headache</em>.</h1>
+      <p class="lead">easybull turns charts, jargon, and noise into plain answers. Track your portfolio, understand every move, and let Toro — your AI trading assistant — explain what's actually going on.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-mint" href="#waitlist">Get early access</a>
+        <a class="btn btn-ghost" href="#toro">Meet Toro</a>
+      </div>
+    </div>
+    <div class="phone" role="img" aria-label="Preview of a chat with Toro, the easybull assistant">
+      <div class="chat-head">
+        <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#18C98A"/><g transform="translate(9.9,16.8) scale(0.81)"><path d="M36 46 C22 44 12 34 14 18 C22 28 28 33 38 35 Q40 41 36 46 Z" fill="#0E2B21"/><path d="M64 46 C78 44 88 34 86 18 C78 28 72 33 62 35 Q60 41 64 46 Z" fill="#0E2B21"/><polyline points="33,25 43,16 51,21 63,11" fill="none" stroke="#0E2B21" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M69.5 5.5 L61.8 6.5 L67 12.8 Z" fill="#0E2B21"/><path d="M30 40 Q50 29 70 40 L66 64 Q58 80 50 80 Q42 80 34 64 Z" fill="#FFFFFF"/><circle cx="40" cy="50" r="3" fill="#0E2B21"/><circle cx="60" cy="50" r="3" fill="#0E2B21"/><rect x="37" y="63" width="26" height="15" rx="7.5" fill="#0E2B21"/><circle cx="44" cy="70.5" r="2.4" fill="#18C98A"/><circle cx="56" cy="70.5" r="2.4" fill="#18C98A"/></g></svg>
+        <div class="who">
+          <p>Toro</p>
+          <span><span class="dot"></span>easybull assistant</span>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="msg user">why is my portfolio red today?</div>
+        <div class="msg toro">You're down 1.2%, mostly from one position. Here's the breakdown:</div>
+        <div class="mini-card">
+          <div class="row"><span>NVDA</span><span class="down">-3.4%</span></div>
+          <div class="row"><span>AAPL</span><span class="down">-0.8%</span></div>
+          <div class="row"><span>VOO</span><span class="up">+0.2%</span></div>
+        </div>
+        <div class="msg toro">Chip stocks pulled back sector-wide after this morning's earnings guidance — it's not specific to your holdings.</div>
+      </div>
+      <div class="chat-in">
+        <div class="field">Ask Toro anything</div>
+        <div class="send" aria-hidden="true">↑</div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>AAPL <b class="t-up">+0.42%</b></span><span>NVDA <b class="t-down">-3.41%</b></span><span>TSLA <b class="t-up">+1.87%</b></span><span>VOO <b class="t-up">+0.21%</b></span><span>MSFT <b class="t-up">+0.66%</b></span><span>AMZN <b class="t-down">-0.34%</b></span><span>BTC <b class="t-up">+2.10%</b></span><span>GOOG <b class="t-up">+0.15%</b></span>
+      <span>AAPL <b class="t-up">+0.42%</b></span><span>NVDA <b class="t-down">-3.41%</b></span><span>TSLA <b class="t-up">+1.87%</b></span><span>VOO <b class="t-up">+0.21%</b></span><span>MSFT <b class="t-up">+0.66%</b></span><span>AMZN <b class="t-down">-0.34%</b></span><span>BTC <b class="t-up">+2.10%</b></span><span>GOOG <b class="t-up">+0.15%</b></span>
+    </div>
+  </div>
+</header>
+
+<section id="app">
+  <div class="wrap">
+    <p class="eyebrow">the app</p>
+    <h2>Everything you need. Nothing you have to google.</h2>
+    <p class="sub">easybull is built for people who want to grow their money without a finance degree. Clean views, plain English, and context on every number.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="glyph">↗</div>
+        <h3>One clear portfolio</h3>
+        <p>Your holdings, performance, and history in one honest view — no fifteen-tab dashboards, no mystery fees buried in menus.</p>
+      </div>
+      <div class="card">
+        <div class="glyph">Aa</div>
+        <h3>Plain-English everything</h3>
+        <p>Every chart, candle, and metric comes with a one-line explanation. Learn the market by using it, not by studying it.</p>
+      </div>
+      <div class="card">
+        <div class="glyph">◷</div>
+        <h3>Answers in seconds</h3>
+        <p>Something moved? You'll know what, why, and how it affects you before the group chat finishes arguing about it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="toro" style="padding-top:0">
+  <div class="wrap">
+    <div class="toro">
+      <div>
+        <div class="toro-avatar">
+          <svg width="56" height="56" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#18C98A"/><g transform="translate(9.9,16.8) scale(0.81)"><path d="M36 46 C22 44 12 34 14 18 C22 28 28 33 38 35 Q40 41 36 46 Z" fill="#0E2B21"/><path d="M64 46 C78 44 88 34 86 18 C78 28 72 33 62 35 Q60 41 64 46 Z" fill="#0E2B21"/><polyline points="33,25 43,16 51,21 63,11" fill="none" stroke="#0E2B21" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M69.5 5.5 L61.8 6.5 L67 12.8 Z" fill="#0E2B21"/><path d="M30 40 Q50 29 70 40 L66 64 Q58 80 50 80 Q42 80 34 64 Z" fill="#FFFFFF"/><circle cx="40" cy="50" r="3" fill="#0E2B21"/><circle cx="60" cy="50" r="3" fill="#0E2B21"/><rect x="37" y="63" width="26" height="15" rx="7.5" fill="#0E2B21"/><circle cx="44" cy="70.5" r="2.4" fill="#18C98A"/><circle cx="56" cy="70.5" r="2.4" fill="#18C98A"/></g></svg>
+          <div>
+            <div class="name">Toro</div>
+            <div class="role">Your AI trading assistant</div>
+          </div>
+        </div>
+        <p class="eyebrow">the agent</p>
+        <h2>Ask Toro. Skip the jargon.</h2>
+        <p class="sub">Toro watches the market and your portfolio so you don't have to. Ask anything in normal words and get an answer that actually makes sense.</p>
+      </div>
+      <ul>
+        <li><strong>Explains your day</strong> — what moved, why it moved, and whether it's about you or the whole market.</li>
+        <li><strong>Breaks down any stock</strong> — earnings, trends, and risks in a paragraph, not a research report.</li>
+        <li><strong>Watches while you live</strong> — set an alert in one sentence and Toro pings you when it matters.</li>
+        <li><strong>Teaches as you go</strong> — every answer builds your understanding, so the market gets less mysterious every week.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="waitlist" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow" style="letter-spacing:.3em">early access</p>
+    <h2 style="margin:0 auto">Be first through the gate.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto">Join the waitlist and we'll email you the moment easybull and Toro open up.</p>
+    <!-- Replace the action URL with your own form endpoint (e.g. from formspree.io) -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
+      <button class="btn btn-mint" type="submit">Notify me</button>
+    </form>
+    <p class="fine">No spam. One email when we launch, maybe one before.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <a class="brand" href="#top" style="font-size:1.05rem">
+        <svg width="28" height="28" viewBox="0 0 110 110" aria-hidden="true"><rect width="110" height="110" rx="26" fill="#12362A"/><g transform="translate(0,10) scale(1.1)"><path d="M36 46 C22 44 12 34 14 18 C22 28 28 33 38 35 Q40 41 36 46 Z" fill="#18C98A"/><path d="M64 46 C78 44 88 34 86 18 C78 28 72 33 62 35 Q60 41 64 46 Z" fill="#18C98A"/><polyline points="33,25 43,16 51,21 63,11" fill="none" stroke="#18C98A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M69.5 5.5 L61.8 6.5 L67 12.8 Z" fill="#18C98A"/><path d="M30 40 Q50 29 70 40 L66 64 Q58 80 50 80 Q42 80 34 64 Z" fill="#FFFFFF"/><circle cx="40" cy="50" r="3" fill="#0E2B21"/><circle cx="60" cy="50" r="3" fill="#0E2B21"/><rect x="37" y="63" width="26" height="15" rx="7.5" fill="#18C98A"/><circle cx="44" cy="70.5" r="2.4" fill="#0E2B21"/><circle cx="56" cy="70.5" r="2.4" fill="#0E2B21"/></g></svg>
+        easy<b>bull</b>
+      </a>
+      <span>© 2026 easybull. All rights reserved.</span>
+    </div>
+    <p class="disclaimer">easybull is a technology product and does not provide investment, legal, or tax advice. Toro provides educational information only; nothing on this site or in the app is a recommendation to buy or sell any security. Trading involves risk, including the possible loss of principal. Market data shown here is illustrative.</p>
+  </div>
+</footer>
+
+</body>
+</html>
